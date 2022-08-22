@@ -68,9 +68,9 @@ const Home: NextPage = () => {
     }
   };
   const form = [
-    <RequsitionDetails data={data} />,
-    <JobDetails data={data} />,
-    <InterviewDetails data={data} />,
+    <RequsitionDetails data={data} key={0} />,
+    <JobDetails data={data} key={1} />,
+    <InterviewDetails data={data} key={2} />,
   ];
   return (
     <PageContext.Provider value={{ handlePrev, handleNext }}>
