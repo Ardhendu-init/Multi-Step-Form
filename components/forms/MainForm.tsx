@@ -81,49 +81,31 @@ const MainForm = () => {
           left="147"
         >
           <Text
-            variant="unstyled"
             fontWeight="400"
             fontSize="15px"
             lineHeight="22px"
             letterSpacing="0.01em"
             color="brand.400"
-            cursor="pointer"
-            _hover={{
-              color: "brand.700",
-              fontWeight: "700",
-            }}
           >
             Requsition Details{" "}
           </Text>
           <Text
-            variant="unstyled"
             ml="89px"
             fontWeight="400"
             fontSize="15px"
             lineHeight="22px"
             letterSpacing="0.01em"
             color="brand.400"
-            cursor="pointer"
-            _hover={{
-              color: "brand.700",
-              fontWeight: "700",
-            }}
           >
             Job Details{" "}
           </Text>
           <Text
-            variant="unstyled"
             ml="89px"
             fontWeight="400"
             fontSize="15px"
             lineHeight="22px"
             letterSpacing="0.01em"
             color="brand.400"
-            cursor="pointer"
-            _hover={{
-              color: "brand.700",
-              fontWeight: "700",
-            }}
           >
             Interview Settings{" "}
           </Text>
