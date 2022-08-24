@@ -58,7 +58,7 @@ const MainForm = () => {
 
   return (
     <PageContext.Provider value={{ handlePrev, handleNext }}>
-      <Box bgColor="brand.200" height="1024px" width="1440px">
+      <Box bgColor="brand.200" height="1024px">
         <Text
           position="absolute"
           left="128px"
