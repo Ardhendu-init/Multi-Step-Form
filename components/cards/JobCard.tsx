@@ -53,6 +53,7 @@ const JobCard = () => {
             color="brand.500"
             lineHeight="18px"
             pb="29px"
+            pr="15px"
           >
             {data.jobTitle}
           </Text>
@@ -77,6 +78,7 @@ const JobCard = () => {
             color="brand.500"
             lineHeight="18px"
             pb="29px"
+            pr="15px"
           >
             {data.jobDescription}
           </Text>
@@ -101,6 +103,7 @@ const JobCard = () => {
             color="brand.500"
             lineHeight="18px"
             pb="29px"
+            pr="15px"
           >
             {data.jobLocation}
           </Text>

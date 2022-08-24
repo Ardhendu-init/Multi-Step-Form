@@ -49,6 +49,7 @@ const MainForm = () => {
   const handleNext = async (values: valueProps) => {
     if (page == 2) {
       setPage(0);
+      alert(JSON.stringify(values, null, 2));
       await dispatch(refresh());
     } else {
       setPage((cur) => cur + 1);

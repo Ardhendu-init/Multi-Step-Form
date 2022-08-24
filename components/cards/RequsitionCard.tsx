@@ -98,6 +98,7 @@ const RequsitionCard = () => {
               color="brand.500"
               lineHeight="18px"
               pb="29px"
+              pr="15px"
             >
               {data.owner}
             </Text>
@@ -122,6 +123,7 @@ const RequsitionCard = () => {
               color="brand.500"
               lineHeight="18px"
               pb="29px"
+              pr="15px"
             >
               {data.urgency}
             </Text>
@@ -146,6 +148,7 @@ const RequsitionCard = () => {
               color="brand.500"
               lineHeight="18px"
               pb="29px"
+              pr="15px"
             >
               {data.employmentType}
             </Text>
@@ -170,6 +173,7 @@ const RequsitionCard = () => {
               color="brand.500"
               lineHeight="18px"
               pb="29px"
+              pr="15px"
             >
               {data.hiringManger}
             </Text>

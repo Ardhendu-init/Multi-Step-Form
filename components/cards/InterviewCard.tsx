@@ -53,6 +53,7 @@ const InterviewCard = () => {
             color="brand.500"
             lineHeight="18px"
             pb="29px"
+            pr="15px"
           >
             {data.interviewMode}
           </Text>
@@ -77,6 +78,7 @@ const InterviewCard = () => {
             color="brand.500"
             lineHeight="18px"
             pb="29px"
+            pr="15px"
           >
             {data.interviewDuration}
           </Text>
@@ -101,6 +103,7 @@ const InterviewCard = () => {
             color="brand.500"
             lineHeight="18px"
             pb="29px"
+            pr="15px"
           >
             {data.interviewLanguage}
           </Text>
