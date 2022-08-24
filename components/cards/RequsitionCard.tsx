@@ -47,7 +47,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
             letterSpacing="0.05em"
             color="brand.800"
           >
-            {value.openings}5
+            {value.openings}
           </Text>
         </Flex>
       </Flex>
