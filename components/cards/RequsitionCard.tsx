@@ -24,7 +24,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
           textTransform="capitalize"
           color="brand.800"
         >
-          {value.title} avahv
+          {value.title}
         </Text>
         <Flex alignItems="center">
           {" "}
