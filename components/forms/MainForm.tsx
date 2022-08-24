@@ -12,7 +12,7 @@ interface PageContextInterface {
   handlePrev: () => void;
   handleNext: () => void;
   data: valueProps;
-  getData: ({ ...values }: { [x: string]: any }) => void;
+  getData: (values: any) => void;
 }
 
 export const PageContext = createContext<PageContextInterface | null>(null);

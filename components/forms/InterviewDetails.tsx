@@ -16,6 +16,15 @@ const InterviewDetails = () => {
 
   const formik = useFormik({
     initialValues: {
+      title: "",
+      owner: "",
+      hiringManger: "",
+      openings: "",
+      urgency: "",
+      employmentType: "",
+      jobTitle: "",
+      jobDescription: "",
+      jobLocation: "",
       interviewMode: "",
       interviewDuration: "",
       interviewLanguage: "",
@@ -31,7 +40,7 @@ const InterviewDetails = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <FormControl>
-        <FormInputLabel name="Job Title" />
+        <FormInputLabel name="Interview Mode" />
         <Input
           id="interviewMode"
           type="text"
@@ -49,7 +58,7 @@ const InterviewDetails = () => {
         {formik.touched.interviewMode && formik.errors.interviewMode ? (
           <div>{formik.errors.interviewMode}</div>
         ) : null}
-        <FormInputLabel name="Job Description" />
+        <FormInputLabel name="Interview Duration" />
         <Input
           id="interviewDuration"
           type="text"
@@ -66,7 +75,7 @@ const InterviewDetails = () => {
         {formik.touched.interviewDuration && formik.errors.interviewDuration ? (
           <div>{formik.errors.interviewDuration}</div>
         ) : null}
-        <FormInputLabel name="Job Location" />
+        <FormInputLabel name="Interview Language" />
         <Input
           id="interviewLanguage"
           type="text"

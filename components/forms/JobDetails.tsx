@@ -16,9 +16,18 @@ const JobDetails = () => {
   const data = pageContext?.data;
   const formik = useFormik({
     initialValues: {
+      title: "",
+      owner: "",
+      hiringManger: "",
+      openings: "",
+      urgency: "",
+      employmentType: "",
       jobTitle: "",
       jobDescription: "",
       jobLocation: "",
+      interviewMode: "",
+      interviewDuration: "",
+      interviewLanguage: "",
     },
     validationSchema: JobSchema,
     onSubmit: (values) => {

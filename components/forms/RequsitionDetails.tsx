@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useFormik } from "formik";
+import { useFormik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { PageContext } from "../forms/MainForm";
@@ -25,6 +25,12 @@ const RequsitionDetails = () => {
       openings: "",
       urgency: "",
       employmentType: "",
+      jobTitle: "",
+      jobDescription: "",
+      jobLocation: "",
+      interviewMode: "",
+      interviewDuration: "",
+      interviewLanguage: "",
     },
     validationSchema: RegistrationSchema,
     onSubmit: (values) => {
