@@ -5,8 +5,3 @@ export const InterviewSchema = Yup.object().shape({
   interviewDuration: Yup.string().required("Duration is required"),
   interviewLanguage: Yup.string().required(" Interview Language is required"),
 });
-const initialValues = {
-  interviewMode: "",
-  interviewDuration: "",
-  interviewLanguage: "",
-};

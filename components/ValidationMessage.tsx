@@ -1,13 +1,13 @@
 import { ErrorMessage } from "formik";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 interface Props {
   name: string;
 }
 
 export const ValidationMessage: React.FC<Props> = ({ name }) => {
   return (
-    <Box color="red">
+    <Text color="red" fontSize="13px" fontWeight="400">
       <ErrorMessage name={name} />
-    </Box>
+    </Text>
   );
 };
