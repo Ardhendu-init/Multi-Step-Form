@@ -7,66 +7,57 @@ import { valueProps } from "../../model";
 import InterviewCard from "../cards/InterviewCard";
 import JobCard from "../cards/JobCard";
 import RequsitionCard from "../cards/RequsitionCard";
-
+import { FormikValues } from "formik";
+import { useAppSelector, useAppDispatch } from "../../app/hook";
+import { add, refresh } from "../../app/feature/details/detailsSlice";
 interface PageContextInterface {
-  handlePrev: () => void;
-  handleNext: () => void;
-  data: valueProps;
-  getData: (values: any) => void;
+  handlePrev: (values: valueProps) => void;
+  handleNext: (values: valueProps) => void;
 }
 
 export const PageContext = createContext<PageContextInterface | null>(null);
 
 const MainForm = () => {
   const [page, setPage] = useState<number>(0);
-  const [data, setData] = useState<valueProps>({
-    title: "",
-    owner: "",
-    hiringManger: "",
-    openings: "",
-    urgency: "",
-    employmentType: "",
-    jobTitle: "",
-    jobDescription: "",
-    jobLocation: "",
-    interviewMode: "",
-    interviewDuration: "",
-    interviewLanguage: "",
-  });
+  const data = useAppSelector((state) => state.details);
+  const dispatch = useAppDispatch();
+  //
+  // const getData = (values: any) => {
+  //   setData((prevState) => ({
+  //     ...prevState,
+  //     title: values.title,
+  //     owner: values.owner,
+  //     hiringManger: values.hiringManger,
+  //     openings: values.openings,
+  //     urgency: values.urgency,
+  //     employmentType: values.employmentType,
+  //     jobTitle: values.jobTitle,
+  //     jobDescription: values.jobDescription,
+  //     jobLocation: values.jobLocation,
+  //     interviewMode: values.interviewMode,
+  //     interviewDuration: values.interviewDuration,
+  //     interviewLanguage: values.interviewLanguage,
+  //   }));
+  // };
 
-  const getData = (values: any) => {
-    setData((prevState) => ({
-      ...prevState,
-      title: values.title,
-      owner: values.owner,
-      hiringManger: values.hiringManger,
-      openings: values.openings,
-      urgency: values.urgency,
-      employmentType: values.employmentType,
-      jobTitle: values.jobTitle,
-      jobDescription: values.jobDescription,
-      jobLocation: values.jobLocation,
-      interviewMode: values.interviewMode,
-      interviewDuration: values.interviewDuration,
-      interviewLanguage: values.interviewLanguage,
-    }));
-  };
-  console.log(data);
-  const handlePrev = () => {
+  const handlePrev = async (values: valueProps) => {
+    await dispatch(add(values));
     if (page > 0) {
       setPage((prev) => prev - 1);
     }
   };
-  const handleNext = () => {
+  const handleNext = async (values: valueProps) => {
     if (page == 2) {
       setPage(0);
+      await dispatch(refresh());
     } else {
       setPage((cur) => cur + 1);
+      await dispatch(add(values));
     }
   };
 
   return (
-    <PageContext.Provider value={{ handlePrev, handleNext, data, getData }}>
+    <PageContext.Provider value={{ handlePrev, handleNext }}>
       <Box bgColor="brand.200" height="1024px" width="1440px">
         <Text
           position="absolute"
@@ -89,7 +80,7 @@ const MainForm = () => {
           bottom="88.77%"
           left="147"
         >
-          <Button
+          <Text
             variant="unstyled"
             fontWeight="400"
             fontSize="15px"
@@ -103,8 +94,8 @@ const MainForm = () => {
             }}
           >
             Requsition Details{" "}
-          </Button>
-          <Button
+          </Text>
+          <Text
             variant="unstyled"
             ml="89px"
             fontWeight="400"
@@ -119,8 +110,8 @@ const MainForm = () => {
             }}
           >
             Job Details{" "}
-          </Button>
-          <Button
+          </Text>
+          <Text
             variant="unstyled"
             ml="89px"
             fontWeight="400"
@@ -135,7 +126,7 @@ const MainForm = () => {
             }}
           >
             Interview Settings{" "}
-          </Button>
+          </Text>
         </Flex>
         <Divider
           pos="absolute"
@@ -145,6 +136,36 @@ const MainForm = () => {
           border="1px solid "
           color="#D6DEFF"
         />
+        {page == 0 && (
+          <Box
+            pos="absolute"
+            w="192px"
+            h="2px"
+            left="124px"
+            top="139px"
+            bgColor="brand.600"
+          ></Box>
+        )}
+        {page == 1 && (
+          <Box
+            pos="absolute"
+            w="192px"
+            h="2px"
+            left="310px"
+            top="139px"
+            bgColor="brand.600"
+          ></Box>
+        )}
+        {page == 2 && (
+          <Box
+            pos="absolute"
+            w="192px"
+            h="2px"
+            left="500px"
+            top="139px"
+            bgColor="brand.600"
+          ></Box>
+        )}
         <Box position="absolute" top="180" left="133" w="696px">
           {page === 0 && <RequsitionDetails />}
           {page === 1 && <JobDetails />}
@@ -193,17 +214,17 @@ const MainForm = () => {
             </Box>
           </Flex>
           <Box>
-            {page == 0 && <RequsitionCard value={data} />}
+            {page == 0 && <RequsitionCard />}
             {page == 1 && (
               <>
-                <RequsitionCard value={data} />
-                <JobCard value={data} />
+                <RequsitionCard />
+                <JobCard />
               </>
             )}
             {page == 2 && (
               <>
-                <RequsitionCard value={data} />
-                <JobCard value={data} /> <InterviewCard value={data} />
+                <RequsitionCard />
+                <JobCard /> <InterviewCard />
               </>
             )}
           </Box>

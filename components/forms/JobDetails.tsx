@@ -1,41 +1,32 @@
 import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useAppSelector, useAppDispatch } from "../../app/hook";
+import { add } from "../../app/feature/details/detailsSlice";
 import { PageContext } from "../forms/MainForm";
 import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
 import FormInputLabel from "./FormInputLabel";
 
 const JobDetails = () => {
   const pageContext = useContext(PageContext);
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.details);
   const JobSchema = Yup.object({
     jobTitle: Yup.string().required(" Job Title is required "),
     jobDescription: Yup.string().required("Job Description is required"),
     jobLocation: Yup.string().required("Location  name  is required"),
   });
-  const data = pageContext?.data;
+
   const formik = useFormik({
-    initialValues: {
-      title: "",
-      owner: "",
-      hiringManger: "",
-      openings: "",
-      urgency: "",
-      employmentType: "",
-      jobTitle: "",
-      jobDescription: "",
-      jobLocation: "",
-      interviewMode: "",
-      interviewDuration: "",
-      interviewLanguage: "",
-    },
+    initialValues: data,
+
     validationSchema: JobSchema,
     onSubmit: (values) => {
-      pageContext?.handleNext();
+      pageContext?.handleNext(data);
     },
   });
   useEffect(() => {
-    pageContext?.getData(formik.values);
+    dispatch(add(formik.values));
   }, [formik.values]);
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -56,7 +47,9 @@ const JobDetails = () => {
         />
 
         {formik.touched.jobTitle && formik.errors.jobTitle ? (
-          <div>{formik.errors.jobTitle}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.jobTitle}
+          </Box>
         ) : null}
         <FormInputLabel name="Job Description" />
         <Input
@@ -73,7 +66,9 @@ const JobDetails = () => {
           variant="filled"
         />
         {formik.touched.jobDescription && formik.errors.jobDescription ? (
-          <div>{formik.errors.jobDescription}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.jobDescription}
+          </Box>
         ) : null}
         <FormInputLabel name="Job Location" />
         <Input
@@ -90,7 +85,9 @@ const JobDetails = () => {
           variant="filled"
         />
         {formik.touched.jobLocation && formik.errors.jobLocation ? (
-          <div>{formik.errors.jobLocation}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.jobLocation}
+          </Box>
         ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
@@ -105,7 +102,7 @@ const JobDetails = () => {
           lineHeight="17px"
           letterSpacing="0.01em"
           variant="unstyled"
-          onClick={() => pageContext?.handlePrev()}
+          onClick={() => pageContext?.handlePrev(data)}
         >
           Previous
         </Button>
@@ -123,7 +120,7 @@ const JobDetails = () => {
           type="submit"
           variant="unstyled"
         >
-          Submit
+          Next
         </Button>
       </Flex>
     </form>

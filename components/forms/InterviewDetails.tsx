@@ -1,13 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useAppSelector, useAppDispatch } from "../../app/hook";
+import { add } from "../../app/feature/details/detailsSlice";
 import { PageContext } from "../forms/MainForm";
 import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
 import FormInputLabel from "./FormInputLabel";
 
 const InterviewDetails = () => {
   const pageContext = useContext(PageContext);
+  const data = useAppSelector((state) => state.details);
+  const dispatch = useAppDispatch();
   const InterviewSchema = Yup.object({
     interviewMode: Yup.string().required(" Interview mode  is required "),
     interviewDuration: Yup.string().required("Duration is required"),
@@ -15,27 +18,15 @@ const InterviewDetails = () => {
   });
 
   const formik = useFormik({
-    initialValues: {
-      title: "",
-      owner: "",
-      hiringManger: "",
-      openings: "",
-      urgency: "",
-      employmentType: "",
-      jobTitle: "",
-      jobDescription: "",
-      jobLocation: "",
-      interviewMode: "",
-      interviewDuration: "",
-      interviewLanguage: "",
-    },
+    initialValues: data,
+
     validationSchema: InterviewSchema,
     onSubmit: (values) => {
-      pageContext?.handleNext();
+      pageContext?.handleNext(data);
     },
   });
   useEffect(() => {
-    pageContext?.getData(formik.values);
+    dispatch(add(formik.values));
   }, [formik.values]);
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -56,7 +47,9 @@ const InterviewDetails = () => {
         />
 
         {formik.touched.interviewMode && formik.errors.interviewMode ? (
-          <div>{formik.errors.interviewMode}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.interviewMode}
+          </Box>
         ) : null}
         <FormInputLabel name="Interview Duration" />
         <Input
@@ -73,7 +66,9 @@ const InterviewDetails = () => {
           variant="filled"
         />
         {formik.touched.interviewDuration && formik.errors.interviewDuration ? (
-          <div>{formik.errors.interviewDuration}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.interviewDuration}
+          </Box>
         ) : null}
         <FormInputLabel name="Interview Language" />
         <Input
@@ -90,7 +85,9 @@ const InterviewDetails = () => {
           variant="filled"
         />
         {formik.touched.interviewLanguage && formik.errors.interviewLanguage ? (
-          <div>{formik.errors.interviewLanguage}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.interviewLanguage}
+          </Box>
         ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
@@ -105,7 +102,7 @@ const InterviewDetails = () => {
           lineHeight="17px"
           letterSpacing="0.01em"
           variant="unstyled"
-          onClick={() => pageContext?.handlePrev()}
+          onClick={() => pageContext?.handlePrev(data)}
         >
           Previous
         </Button>

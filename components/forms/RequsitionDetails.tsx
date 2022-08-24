@@ -1,13 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { useFormik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
+import { useAppSelector, useAppDispatch } from "../../app/hook";
+import { add } from "../../app/feature/details/detailsSlice";
 import { PageContext } from "../forms/MainForm";
 import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
 import FormInputLabel from "./FormInputLabel";
 const RequsitionDetails = () => {
   const pageContext = useContext(PageContext);
-  const data = pageContext?.data;
+  const data = useAppSelector((state) => state.details);
+  const dispatch = useAppDispatch();
+
   const RegistrationSchema = Yup.object({
     title: Yup.string().required("Title is required "),
     owner: Yup.string().required("Owner name  is required"),
@@ -18,27 +21,14 @@ const RequsitionDetails = () => {
   });
 
   const formik = useFormik({
-    initialValues: {
-      title: "",
-      owner: "",
-      hiringManger: "",
-      openings: "",
-      urgency: "",
-      employmentType: "",
-      jobTitle: "",
-      jobDescription: "",
-      jobLocation: "",
-      interviewMode: "",
-      interviewDuration: "",
-      interviewLanguage: "",
-    },
+    initialValues: data,
     validationSchema: RegistrationSchema,
     onSubmit: (values) => {
-      pageContext?.handleNext();
+      pageContext?.handleNext(data);
     },
   });
   useEffect(() => {
-    pageContext?.getData(formik.values);
+    dispatch(add(formik.values));
   }, [formik.values]);
 
   return (
@@ -60,7 +50,9 @@ const RequsitionDetails = () => {
         />
 
         {formik.touched.title && formik.errors.title ? (
-          <div>{formik.errors.title}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.title}
+          </Box>
         ) : null}
         <FormInputLabel name="Owner" />
         <Input
@@ -77,7 +69,9 @@ const RequsitionDetails = () => {
           variant="filled"
         />
         {formik.touched.owner && formik.errors.owner ? (
-          <div>{formik.errors.owner}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.owner}
+          </Box>
         ) : null}
         <FormInputLabel name="Hiring Manager" />
         <Input
@@ -94,9 +88,11 @@ const RequsitionDetails = () => {
           variant="filled"
         />
         {formik.touched.hiringManger && formik.errors.hiringManger ? (
-          <div>{formik.errors.hiringManger}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.hiringManger}
+          </Box>
         ) : null}
-        <FormInputLabel name="Hiring Manager" />
+        <FormInputLabel name="Openings" />
         <Input
           id="openings"
           type="text"
@@ -111,7 +107,9 @@ const RequsitionDetails = () => {
           variant="filled"
         />
         {formik.touched.openings && formik.errors.openings ? (
-          <div>{formik.errors.openings}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.openings}
+          </Box>
         ) : null}
         <FormInputLabel name="Urgency" />
         <Input
@@ -128,7 +126,9 @@ const RequsitionDetails = () => {
           variant="filled"
         />
         {formik.touched.urgency && formik.errors.urgency ? (
-          <div>{formik.errors.urgency}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.urgency}
+          </Box>
         ) : null}
         <FormInputLabel name="Employment Type" />
         <Input
@@ -145,7 +145,9 @@ const RequsitionDetails = () => {
           variant="filled"
         />
         {formik.touched.employmentType && formik.errors.employmentType ? (
-          <div>{formik.errors.employmentType}</div>
+          <Box color="red" fontSize="13px">
+            {formik.errors.employmentType}
+          </Box>
         ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
@@ -177,7 +179,7 @@ const RequsitionDetails = () => {
           type="submit"
           variant="unstyled"
         >
-          Submit
+          Next
         </Button>
       </Flex>
     </form>

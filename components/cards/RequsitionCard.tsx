@@ -1,10 +1,11 @@
 import React from "react";
 import { valueProps } from "../../model";
 import { Box, Flex, Text } from "@chakra-ui/react";
-interface interviewProps {
-  value: valueProps;
-}
-const RequsitionCard = ({ value }: interviewProps) => {
+import { useAppSelector } from "../../app/hook";
+
+const RequsitionCard = () => {
+  const data = useAppSelector((state) => state.details);
+
   return (
     <Flex flexDir="column" mt="72px" ml="26px" mb="21px">
       <Flex
@@ -24,7 +25,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
           textTransform="capitalize"
           color="brand.800"
         >
-          {value.title}
+          {data.title}
         </Text>
         <Flex alignItems="center">
           {" "}
@@ -47,7 +48,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
             letterSpacing="0.05em"
             color="brand.800"
           >
-            {value.openings}
+            {data.openings}
           </Text>
         </Flex>
       </Flex>
@@ -98,7 +99,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
               lineHeight="18px"
               pb="29px"
             >
-              {value.owner}
+              {data.owner}
             </Text>
           </Flex>
           <Flex flexDir="column">
@@ -122,7 +123,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
               lineHeight="18px"
               pb="29px"
             >
-              {value.urgency}
+              {data.urgency}
             </Text>
           </Flex>
           <Flex flexDir="column">
@@ -146,7 +147,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
               lineHeight="18px"
               pb="29px"
             >
-              {value.employmentType}
+              {data.employmentType}
             </Text>
           </Flex>
           <Flex flexDir="column">
@@ -170,7 +171,7 @@ const RequsitionCard = ({ value }: interviewProps) => {
               lineHeight="18px"
               pb="29px"
             >
-              {value.hiringManger}
+              {data.hiringManger}
             </Text>
           </Flex>
         </Flex>

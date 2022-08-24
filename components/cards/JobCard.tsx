@@ -1,10 +1,9 @@
 import React from "react";
 import { valueProps } from "../../model";
 import { Box, Flex, Text } from "@chakra-ui/react";
-interface interviewProps {
-  value: valueProps;
-}
-const JobCard = ({ value }: interviewProps) => {
+import { useAppSelector } from "../../app/hook";
+const JobCard = () => {
+  const data = useAppSelector((state) => state.details);
   return (
     <Flex
       w="392px"
@@ -55,7 +54,7 @@ const JobCard = ({ value }: interviewProps) => {
             lineHeight="18px"
             pb="29px"
           >
-            {value.jobTitle}
+            {data.jobTitle}
           </Text>
         </Flex>
         <Flex flexDir="column">
@@ -79,7 +78,7 @@ const JobCard = ({ value }: interviewProps) => {
             lineHeight="18px"
             pb="29px"
           >
-            {value.jobDescription}
+            {data.jobDescription}
           </Text>
         </Flex>
         <Flex flexDir="column">
@@ -103,7 +102,7 @@ const JobCard = ({ value }: interviewProps) => {
             lineHeight="18px"
             pb="29px"
           >
-            {value.jobLocation}
+            {data.jobLocation}
           </Text>
         </Flex>
       </Flex>
