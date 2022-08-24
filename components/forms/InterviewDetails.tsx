@@ -1,117 +1,123 @@
-import { Formik, Form } from "formik";
-import { InterviewSchema } from "../schemas/InterviewSchema";
-import { ValidationMessage } from "../ValidationMessage";
-import React, { useContext } from "react";
-import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
+import React, { useContext, useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 import { PageContext } from "../forms/MainForm";
-import { valueProps } from "../../model";
+import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
 import FormInputLabel from "./FormInputLabel";
-interface dataProps {
-  data: valueProps;
-}
-const InterviewDetails = ({ data }: dataProps) => {
+
+const InterviewDetails = () => {
   const pageContext = useContext(PageContext);
+  const InterviewSchema = Yup.object({
+    interviewMode: Yup.string().required(" Interview mode  is required "),
+    interviewDuration: Yup.string().required("Duration is required"),
+    interviewLanguage: Yup.string().required(" Interview Language is required"),
+  });
 
-  const handleSubmit = async (values: valueProps) => {
-    pageContext?.handleNext(values);
-  };
-
+  const formik = useFormik({
+    initialValues: {
+      interviewMode: "",
+      interviewDuration: "",
+      interviewLanguage: "",
+    },
+    validationSchema: InterviewSchema,
+    onSubmit: (values) => {
+      pageContext?.handleNext();
+    },
+  });
+  useEffect(() => {
+    pageContext?.getData(formik.values);
+  }, [formik.values]);
   return (
-    <>
-      <Formik
-        initialValues={data}
-        onSubmit={handleSubmit}
-        validationSchema={InterviewSchema}
-      >
-        {({ values, handleChange, handleBlur }) => (
-          <>
-            <Form>
-              <FormControl>
-                <FormInputLabel name="Interview Mode" />
-                <Input
-                  id="interviewMode"
-                  type="text"
-                  name="interviewMode"
-                  value={values.interviewMode}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  {...pageContext?.setData(values)}
-                  mb="16px"
-                  h="49px"
-                  borderRadius="7px"
-                  bgColor="brand.800"
-                  variant="filled"
-                />
-                <ValidationMessage name="interviewMode" />
-                <FormInputLabel name="Interview Duration" />
-                <Input
-                  id="interviewDuration"
-                  type="text"
-                  name="interviewDuration"
-                  value={values.interviewDuration}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  mb="16px"
-                  h="49px"
-                  borderRadius="7px"
-                  bgColor="brand.800"
-                  variant="filled"
-                />
-                <ValidationMessage name="interviewDuration" />
-                <FormInputLabel name="Interview Language" />
-                <Input
-                  id="interviewLanguage"
-                  type="text"
-                  name="interviewLanguage"
-                  value={values.interviewLanguage}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  mb="16px"
-                  h="49px"
-                  borderRadius="7px"
-                  bgColor="brand.800"
-                  variant="filled"
-                />
-                <ValidationMessage name="interviewLanguage" />
-              </FormControl>
-              <Flex mt="78px" ml="395px">
-                <Button
-                  w="143px"
-                  h="38px"
-                  borderRadius="5px"
-                  color="brand.800"
-                  bgColor="brand.400"
-                  fontSize="12px"
-                  fontWeight="500"
-                  lineHeight="17px"
-                  letterSpacing="0.01em"
-                  variant="unstyled"
-                  onClick={() => pageContext?.handlePrev(values)}
-                >
-                  Previous
-                </Button>
-                <Button
-                  w="143px"
-                  h="38px"
-                  borderRadius="5px"
-                  ml="15px"
-                  color="brand.800"
-                  bgColor="brand.600"
-                  fontSize="12px"
-                  fontWeight="500"
-                  lineHeight="17px"
-                  letterSpacing="0.01em"
-                  type="submit"
-                  variant="unstyled"
-                >
-                  Submit
-                </Button>
-              </Flex>
-            </Form>
-          </>
-        )}
-      </Formik>
-    </>
+    <form onSubmit={formik.handleSubmit}>
+      <FormControl>
+        <FormInputLabel name="Job Title" />
+        <Input
+          id="interviewMode"
+          type="text"
+          name="interviewMode"
+          value={formik.values.interviewMode}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          mb="16px"
+          h="49px"
+          borderRadius="7px"
+          bgColor="brand.800"
+          variant="filled"
+        />
+
+        {formik.touched.interviewMode && formik.errors.interviewMode ? (
+          <div>{formik.errors.interviewMode}</div>
+        ) : null}
+        <FormInputLabel name="Job Description" />
+        <Input
+          id="interviewDuration"
+          type="text"
+          name="interviewDuration"
+          value={formik.values.interviewDuration}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          mb="16px"
+          h="49px"
+          borderRadius="7px"
+          bgColor="brand.800"
+          variant="filled"
+        />
+        {formik.touched.interviewDuration && formik.errors.interviewDuration ? (
+          <div>{formik.errors.interviewDuration}</div>
+        ) : null}
+        <FormInputLabel name="Job Location" />
+        <Input
+          id="interviewLanguage"
+          type="text"
+          name="interviewLanguage"
+          value={formik.values.interviewLanguage}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          mb="16px"
+          h="49px"
+          borderRadius="7px"
+          bgColor="brand.800"
+          variant="filled"
+        />
+        {formik.touched.interviewLanguage && formik.errors.interviewLanguage ? (
+          <div>{formik.errors.interviewLanguage}</div>
+        ) : null}
+      </FormControl>
+      <Flex mt="78px" ml="395px">
+        <Button
+          w="143px"
+          h="38px"
+          borderRadius="5px"
+          color="brand.800"
+          bgColor="brand.400"
+          fontSize="12px"
+          fontWeight="500"
+          lineHeight="17px"
+          letterSpacing="0.01em"
+          variant="unstyled"
+          onClick={() => pageContext?.handlePrev()}
+        >
+          Previous
+        </Button>
+        <Button
+          w="143px"
+          h="38px"
+          borderRadius="5px"
+          ml="15px"
+          color="brand.800"
+          bgColor="brand.600"
+          fontSize="12px"
+          fontWeight="500"
+          lineHeight="17px"
+          letterSpacing="0.01em"
+          type="submit"
+          variant="unstyled"
+        >
+          Submit
+        </Button>
+      </Flex>
+    </form>
   );
 };
 

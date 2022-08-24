@@ -9,28 +9,13 @@ import JobCard from "../cards/JobCard";
 import RequsitionCard from "../cards/RequsitionCard";
 
 interface PageContextInterface {
-  handlePrev: (newData: valueProps) => void;
-
-  handleNext: (newData: valueProps) => void;
+  handlePrev: () => void;
+  handleNext: () => void;
   data: valueProps;
-  setData: React.Dispatch<React.SetStateAction<valueProps>>;
+  getData: ({ ...values }: { [x: string]: any }) => void;
 }
 
 export const PageContext = createContext<PageContextInterface | null>(null);
-const intitalValues = {
-  title: "",
-  owner: "",
-  hiringManger: "",
-  openings: "",
-  urgency: "",
-  employmentType: "",
-  jobTitle: "",
-  jobDescription: "",
-  jobLocation: "",
-  interviewMode: "",
-  interviewDuration: "",
-  interviewLanguage: "",
-};
 
 const MainForm = () => {
   const [page, setPage] = useState<number>(0);
@@ -49,31 +34,39 @@ const MainForm = () => {
     interviewLanguage: "",
   });
 
-  const handlePrev = (newData: valueProps) => {
-    setData((prev) => ({ ...prev, ...newData }));
+  const getData = (values: any) => {
+    setData((prevState) => ({
+      ...prevState,
+      title: values.title,
+      owner: values.owner,
+      hiringManger: values.hiringManger,
+      openings: values.openings,
+      urgency: values.urgency,
+      employmentType: values.employmentType,
+      jobTitle: values.jobTitle,
+      jobDescription: values.jobDescription,
+      jobLocation: values.jobLocation,
+      interviewMode: values.interviewMode,
+      interviewDuration: values.interviewDuration,
+      interviewLanguage: values.interviewLanguage,
+    }));
+  };
+  console.log(data);
+  const handlePrev = () => {
     if (page > 0) {
       setPage((prev) => prev - 1);
     }
   };
-  const handleNext = (newData: valueProps) => {
+  const handleNext = () => {
     if (page == 2) {
-      setData((prev) => ({ ...prev, ...newData }));
-      console.log({ ...data, ...newData });
-      setData({ ...intitalValues });
       setPage(0);
     } else {
-      setData((prev) => ({ ...prev, ...newData }));
       setPage((cur) => cur + 1);
     }
   };
-  const getData = () => {};
-  const form = [
-    <RequsitionDetails data={data} key={0} />,
-    <JobDetails data={data} key={1} />,
-    <InterviewDetails data={data} key={2} />,
-  ];
+
   return (
-    <PageContext.Provider value={{ handlePrev, handleNext, data, setData }}>
+    <PageContext.Provider value={{ handlePrev, handleNext, data, getData }}>
       <Box bgColor="brand.200" height="1024px" width="1440px">
         <Text
           position="absolute"
@@ -153,15 +146,15 @@ const MainForm = () => {
           color="#D6DEFF"
         />
         <Box position="absolute" top="180" left="133" w="696px">
-          {form[page]}
+          {page === 0 && <RequsitionDetails />}
+          {page === 1 && <JobDetails />}
+          {page === 2 && <InterviewDetails />}
         </Box>
         <Box
           pos="absolute"
           left="874"
           top="175"
           right="124"
-          bottom="291"
-          h="558px"
           w="442px"
           bgColor="brand.200"
           borderRadius="10px"

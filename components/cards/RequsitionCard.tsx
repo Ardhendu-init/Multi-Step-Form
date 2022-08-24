@@ -6,7 +6,7 @@ interface interviewProps {
 }
 const RequsitionCard = ({ value }: interviewProps) => {
   return (
-    <Flex flexDir="column" mt="72px" ml="26px">
+    <Flex flexDir="column" mt="72px" ml="26px" mb="21px">
       <Flex
         width="391px"
         h="63px"

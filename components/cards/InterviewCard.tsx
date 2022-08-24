@@ -13,6 +13,7 @@ const InterviewCard = ({ value }: interviewProps) => {
       borderRadius="1px solid rgba(0, 0, 0, 0.04)"
       flexDir="column"
       ml="26px"
+      mb="21px"
     >
       <Text
         ml="17"
