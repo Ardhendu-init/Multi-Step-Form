@@ -1,6 +1,6 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
-import { Input, FormLabel } from "@chakra-ui/react";
-import { FieldProps, FieldAttributes } from "formik";
+import { Input, FormLabel, Box } from "@chakra-ui/react";
+import { FieldProps, FieldAttributes, useField } from "formik";
 
 type InputProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -9,9 +9,11 @@ type InputProps = DetailedHTMLProps<
 
 const InputField = ({
   label,
-  Field,
+
+  meta,
   ...props
 }: FieldProps & InputProps & FieldAttributes<any>) => {
+  console.log(meta);
   return (
     <>
       <FormLabel
@@ -31,8 +33,12 @@ const InputField = ({
         bgColor="brand.800"
         variant="filled"
         {...props}
-        {...Field}
       />
+      {meta.touched && meta.error ? (
+        <Box color="red" fontSize="13px">
+          {meta.error}
+        </Box>
+      ) : null}
     </>
   );
 };

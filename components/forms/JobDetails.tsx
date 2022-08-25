@@ -4,7 +4,7 @@ import { JobSchema } from "../Schema/Schema";
 import { useAppSelector, useAppDispatch } from "../../app/hook";
 import { add } from "../../app/feature/details/detailsSlice";
 import { PageContext } from "../Provider/PageContextProvider";
-import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
+import { FormControl, Flex, Box, FormErrorMessage } from "@chakra-ui/react";
 import { PrevButton, NextButton } from "./fromsUtil/FormButton";
 import InputField from "./fromsUtil/InputField";
 const JobDetails = () => {
@@ -26,31 +26,23 @@ const JobDetails = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <FormControl>
-        <InputField label="Job Title " {...formik.getFieldProps("jobTitle")} />
+        <InputField
+          label="Job Title "
+          meta={formik.getFieldMeta("jobTitle")}
+          {...formik.getFieldProps("jobTitle")}
+        />
 
-        {formik.touched.jobTitle && formik.errors.jobTitle ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.jobTitle}
-          </Box>
-        ) : null}
         <InputField
           label="Job Description "
+          meta={formik.getFieldMeta("jobDescription")}
           {...formik.getFieldProps("jobDescription")}
         />
-        {formik.touched.jobDescription && formik.errors.jobDescription ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.jobDescription}
-          </Box>
-        ) : null}
+
         <InputField
           label="Job Location "
+          meta={formik.getFieldMeta("jobLocation")}
           {...formik.getFieldProps("jobLocation")}
         />
-        {formik.touched.jobLocation && formik.errors.jobLocation ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.jobLocation}
-          </Box>
-        ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
         <PrevButton name="Previous" />

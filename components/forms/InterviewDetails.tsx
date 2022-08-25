@@ -29,33 +29,21 @@ const InterviewDetails = () => {
       <FormControl>
         <InputField
           label="Interview Mode "
+          meta={formik.getFieldMeta("interviewMode")}
           {...formik.getFieldProps("interviewMode")}
         />
 
-        {formik.touched.interviewMode && formik.errors.interviewMode ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.interviewMode}
-          </Box>
-        ) : null}
-
         <InputField
           label="Interview Duration "
+          meta={formik.getFieldMeta("interviewDuration")}
           {...formik.getFieldProps("interviewDuration")}
         />
-        {formik.touched.interviewDuration && formik.errors.interviewDuration ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.interviewDuration}
-          </Box>
-        ) : null}
+
         <InputField
           label="Interview Language "
+          meta={formik.getFieldMeta("interviewLanguage")}
           {...formik.getFieldProps("interviewLanguage")}
         />
-        {formik.touched.interviewLanguage && formik.errors.interviewLanguage ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.interviewLanguage}
-          </Box>
-        ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
         <PrevButton name="Previous" />

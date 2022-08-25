@@ -28,51 +28,39 @@ const RequsitionDetails = () => {
       <FormControl>
         <InputField
           label="Requisite Title "
+          meta={formik.getFieldMeta("title")}
           {...formik.getFieldProps("title")}
         />
-        {formik.touched.title && formik.errors.title ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.title}
-          </Box>
-        ) : null}
-        <InputField label="Owner" {...formik.getFieldProps("owner")} />
-        {formik.touched.owner && formik.errors.owner ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.owner}
-          </Box>
-        ) : null}
+
+        <InputField
+          label="Owner"
+          meta={formik.getFieldMeta("owner")}
+          {...formik.getFieldProps("owner")}
+        />
 
         <InputField
           label="Hiring Manager"
+          meta={formik.getFieldMeta("hiringManger")}
           {...formik.getFieldProps("hiringManger")}
         />
-        {formik.touched.hiringManger && formik.errors.hiringManger ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.hiringManger}
-          </Box>
-        ) : null}
-        <InputField label="Openings" {...formik.getFieldProps("openings")} />
-        {formik.touched.openings && formik.errors.openings ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.openings}
-          </Box>
-        ) : null}
 
-        <InputField label="Urgency" {...formik.getFieldProps("urgency")} />
-        {formik.touched.urgency && formik.errors.urgency ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.urgency}
-          </Box>
-        ) : null}
+        <InputField
+          label="Openings"
+          meta={formik.getFieldMeta("openings")}
+          {...formik.getFieldProps("openings")}
+        />
+
+        <InputField
+          label="Urgency"
+          meta={formik.getFieldMeta("urgency")}
+          {...formik.getFieldProps("urgency")}
+        />
+
         <InputField
           label="Employment Type"
+          meta={formik.getFieldMeta("employmentType")}
           {...formik.getFieldProps("employmentType")}
         />
-        {formik.touched.employmentType && formik.errors.employmentType ? (
-          <Box color="red" fontSize="13px">
-            {formik.errors.employmentType}
-          </Box>
-        ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
         <PrevButton name="Previous" />
