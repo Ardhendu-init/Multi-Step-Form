@@ -1,44 +1,18 @@
-import React, { useState, createContext } from "react";
+import React, { useState } from "react";
 import RequsitionDetails from "./RequsitionDetails";
 import JobDetails from "./JobDetails";
 import InterviewDetails from "./InterviewDetails";
-import { Heading, Text, Box, Flex, Button, Divider } from "@chakra-ui/react";
+import { Text, Box, Flex, Divider } from "@chakra-ui/react";
 import { valueProps } from "../../model";
 import InterviewCard from "../cards/InterviewCard";
 import JobCard from "../cards/JobCard";
 import RequsitionCard from "../cards/RequsitionCard";
-import { FormikValues } from "formik";
-import { useAppSelector, useAppDispatch } from "../../app/hook";
+import { PageContext } from "../Provider/PageContextProvider";
+import { useAppDispatch } from "../../app/hook";
 import { add, refresh } from "../../app/feature/details/detailsSlice";
-interface PageContextInterface {
-  handlePrev: (values: valueProps) => void;
-  handleNext: (values: valueProps) => void;
-}
-
-export const PageContext = createContext<PageContextInterface | null>(null);
-
 const MainForm = () => {
   const [page, setPage] = useState<number>(0);
-  const data = useAppSelector((state) => state.details);
   const dispatch = useAppDispatch();
-  //
-  // const getData = (values: any) => {
-  //   setData((prevState) => ({
-  //     ...prevState,
-  //     title: values.title,
-  //     owner: values.owner,
-  //     hiringManger: values.hiringManger,
-  //     openings: values.openings,
-  //     urgency: values.urgency,
-  //     employmentType: values.employmentType,
-  //     jobTitle: values.jobTitle,
-  //     jobDescription: values.jobDescription,
-  //     jobLocation: values.jobLocation,
-  //     interviewMode: values.interviewMode,
-  //     interviewDuration: values.interviewDuration,
-  //     interviewLanguage: values.interviewLanguage,
-  //   }));
-  // };
 
   const handlePrev = async (values: valueProps) => {
     await dispatch(add(values));

@@ -21,7 +21,9 @@ const theme = extendTheme({
       800:"#FFFFFF",
       
     },
+
   },
+  
 });
 
 export default theme;

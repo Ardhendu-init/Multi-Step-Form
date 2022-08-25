@@ -1,21 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { InterviewSchema } from "../Schema/Schema";
 import { useAppSelector, useAppDispatch } from "../../app/hook";
 import { add } from "../../app/feature/details/detailsSlice";
-import { PageContext } from "../forms/MainForm";
-import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
-import FormInputLabel from "./FormInputLabel";
+import { PageContext } from "../Provider/PageContextProvider";
+import { FormControl, Flex, Box } from "@chakra-ui/react";
+import { PrevButton, NextButton } from "./fromsUtil/FormButton";
+import InputField from "./fromsUtil/InputField";
 
 const InterviewDetails = () => {
   const pageContext = useContext(PageContext);
   const data = useAppSelector((state) => state.details);
   const dispatch = useAppDispatch();
-  const InterviewSchema = Yup.object({
-    interviewMode: Yup.string().required(" Interview mode  is required "),
-    interviewDuration: Yup.string().required("Duration is required"),
-    interviewLanguage: Yup.string().required(" Interview Language is required"),
-  });
 
   const formik = useFormik({
     initialValues: data,
@@ -31,19 +27,9 @@ const InterviewDetails = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <FormControl>
-        <FormInputLabel name="Interview Mode" />
-        <Input
-          id="interviewMode"
-          type="text"
-          name="interviewMode"
-          value={formik.values.interviewMode}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          mb="16px"
-          h="49px"
-          borderRadius="7px"
-          bgColor="brand.800"
-          variant="filled"
+        <InputField
+          label="Interview Mode "
+          {...formik.getFieldProps("interviewMode")}
         />
 
         {formik.touched.interviewMode && formik.errors.interviewMode ? (
@@ -51,38 +37,19 @@ const InterviewDetails = () => {
             {formik.errors.interviewMode}
           </Box>
         ) : null}
-        <FormInputLabel name="Interview Duration" />
-        <Input
-          id="interviewDuration"
-          type="text"
-          name="interviewDuration"
-          value={formik.values.interviewDuration}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          mb="16px"
-          h="49px"
-          borderRadius="7px"
-          bgColor="brand.800"
-          variant="filled"
+
+        <InputField
+          label="Interview Duration "
+          {...formik.getFieldProps("interviewDuration")}
         />
         {formik.touched.interviewDuration && formik.errors.interviewDuration ? (
           <Box color="red" fontSize="13px">
             {formik.errors.interviewDuration}
           </Box>
         ) : null}
-        <FormInputLabel name="Interview Language" />
-        <Input
-          id="interviewLanguage"
-          type="text"
-          name="interviewLanguage"
-          value={formik.values.interviewLanguage}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          mb="16px"
-          h="49px"
-          borderRadius="7px"
-          bgColor="brand.800"
-          variant="filled"
+        <InputField
+          label="Interview Language "
+          {...formik.getFieldProps("interviewLanguage")}
         />
         {formik.touched.interviewLanguage && formik.errors.interviewLanguage ? (
           <Box color="red" fontSize="13px">
@@ -91,37 +58,8 @@ const InterviewDetails = () => {
         ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
-        <Button
-          w="143px"
-          h="38px"
-          borderRadius="5px"
-          color="brand.800"
-          bgColor="brand.400"
-          fontSize="12px"
-          fontWeight="500"
-          lineHeight="17px"
-          letterSpacing="0.01em"
-          variant="unstyled"
-          onClick={() => pageContext?.handlePrev(data)}
-        >
-          Previous
-        </Button>
-        <Button
-          w="143px"
-          h="38px"
-          borderRadius="5px"
-          ml="15px"
-          color="brand.800"
-          bgColor="brand.600"
-          fontSize="12px"
-          fontWeight="500"
-          lineHeight="17px"
-          letterSpacing="0.01em"
-          type="submit"
-          variant="unstyled"
-        >
-          Submit
-        </Button>
+        <PrevButton name="Previous" />
+        <NextButton name="Submit" />
       </Flex>
     </form>
   );

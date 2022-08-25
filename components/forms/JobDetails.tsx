@@ -1,21 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { JobSchema } from "../Schema/Schema";
 import { useAppSelector, useAppDispatch } from "../../app/hook";
 import { add } from "../../app/feature/details/detailsSlice";
-import { PageContext } from "../forms/MainForm";
+import { PageContext } from "../Provider/PageContextProvider";
 import { FormControl, Flex, Button, Input, Box } from "@chakra-ui/react";
-import FormInputLabel from "./FormInputLabel";
-
+import { PrevButton, NextButton } from "./fromsUtil/FormButton";
+import InputField from "./fromsUtil/InputField";
 const JobDetails = () => {
   const pageContext = useContext(PageContext);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.details);
-  const JobSchema = Yup.object({
-    jobTitle: Yup.string().required(" Job Title is required "),
-    jobDescription: Yup.string().required("Job Description is required"),
-    jobLocation: Yup.string().required("Location  name  is required"),
-  });
 
   const formik = useFormik({
     initialValues: data,
@@ -31,58 +26,25 @@ const JobDetails = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <FormControl>
-        <FormInputLabel name="Job Title" />
-        <Input
-          id="jobTitle"
-          type="text"
-          name="jobTitle"
-          value={formik.values.jobTitle}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          mb="16px"
-          h="49px"
-          borderRadius="7px"
-          bgColor="brand.800"
-          variant="filled"
-        />
+        <InputField label="Job Title " {...formik.getFieldProps("jobTitle")} />
 
         {formik.touched.jobTitle && formik.errors.jobTitle ? (
           <Box color="red" fontSize="13px">
             {formik.errors.jobTitle}
           </Box>
         ) : null}
-        <FormInputLabel name="Job Description" />
-        <Input
-          id="jobDescription"
-          type="text"
-          name="jobDescription"
-          value={formik.values.jobDescription}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          mb="16px"
-          h="49px"
-          borderRadius="7px"
-          bgColor="brand.800"
-          variant="filled"
+        <InputField
+          label="Job Description "
+          {...formik.getFieldProps("jobDescription")}
         />
         {formik.touched.jobDescription && formik.errors.jobDescription ? (
           <Box color="red" fontSize="13px">
             {formik.errors.jobDescription}
           </Box>
         ) : null}
-        <FormInputLabel name="Job Location" />
-        <Input
-          id="jobLocation"
-          type="text"
-          name="jobLocation"
-          value={formik.values.jobLocation}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          mb="16px"
-          h="49px"
-          borderRadius="7px"
-          bgColor="brand.800"
-          variant="filled"
+        <InputField
+          label="Job Location "
+          {...formik.getFieldProps("jobLocation")}
         />
         {formik.touched.jobLocation && formik.errors.jobLocation ? (
           <Box color="red" fontSize="13px">
@@ -91,37 +53,8 @@ const JobDetails = () => {
         ) : null}
       </FormControl>
       <Flex mt="78px" ml="395px">
-        <Button
-          w="143px"
-          h="38px"
-          borderRadius="5px"
-          color="brand.800"
-          bgColor="brand.400"
-          fontSize="12px"
-          fontWeight="500"
-          lineHeight="17px"
-          letterSpacing="0.01em"
-          variant="unstyled"
-          onClick={() => pageContext?.handlePrev(data)}
-        >
-          Previous
-        </Button>
-        <Button
-          w="143px"
-          h="38px"
-          borderRadius="5px"
-          ml="15px"
-          color="brand.800"
-          bgColor="brand.600"
-          fontSize="12px"
-          fontWeight="500"
-          lineHeight="17px"
-          letterSpacing="0.01em"
-          type="submit"
-          variant="unstyled"
-        >
-          Next
-        </Button>
+        <PrevButton name="Previous" />
+        <NextButton name="Next" />
       </Flex>
     </form>
   );
