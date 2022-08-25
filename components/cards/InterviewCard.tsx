@@ -1,7 +1,8 @@
 import React from "react";
-import { valueProps } from "../../model";
-import { Box, Flex, Text } from "@chakra-ui/react";
+
+import { Flex, Text } from "@chakra-ui/react";
 import { useAppSelector } from "../../app/hook";
+import CardUtils from "./CardUtils";
 const InterviewCard = () => {
   const data = useAppSelector((state) => state.details);
   return (
@@ -33,81 +34,9 @@ const InterviewCard = () => {
         mr="16px"
         mt="29px"
       >
-        <Flex flexDir="column">
-          <Text
-            fontWeight="300"
-            fontSize="10px"
-            letterSpacing="0.05em"
-            textTransform="uppercase"
-            color="brand.500"
-            lineHeight="14px"
-          >
-            Interview Mode
-          </Text>
-          <Text
-            fontWeight="600"
-            fontStyle="italic"
-            fontSize="13px"
-            letterSpacing="0.05em"
-            textTransform="capitalize"
-            color="brand.500"
-            lineHeight="18px"
-            pb="29px"
-            pr="15px"
-          >
-            {data.interviewMode}
-          </Text>
-        </Flex>
-        <Flex flexDir="column">
-          <Text
-            fontWeight="300"
-            fontSize="10px"
-            letterSpacing="0.05em"
-            textTransform="uppercase"
-            color="brand.500"
-            lineHeight="14px"
-          >
-            Interview Duration
-          </Text>
-          <Text
-            fontWeight="600"
-            fontStyle="italic"
-            fontSize="13px"
-            letterSpacing="0.05em"
-            textTransform="capitalize"
-            color="brand.500"
-            lineHeight="18px"
-            pb="29px"
-            pr="15px"
-          >
-            {data.interviewDuration}
-          </Text>
-        </Flex>
-        <Flex flexDir="column">
-          <Text
-            fontWeight="300"
-            fontSize="10px"
-            letterSpacing="0.05em"
-            textTransform="uppercase"
-            color="brand.500"
-            lineHeight="14px"
-          >
-            Interview Language
-          </Text>
-          <Text
-            fontWeight="600"
-            fontStyle="italic"
-            fontSize="13px"
-            letterSpacing="0.05em"
-            textTransform="capitalize"
-            color="brand.500"
-            lineHeight="18px"
-            pb="29px"
-            pr="15px"
-          >
-            {data.interviewLanguage}
-          </Text>
-        </Flex>
+        <CardUtils name="Interview Mode" value={data.interviewMode} />
+        <CardUtils name="Interview Duration " value={data.interviewDuration} />
+        <CardUtils name="Interview Language" value={data.interviewLanguage} />
       </Flex>
     </Flex>
   );

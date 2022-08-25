@@ -1,8 +1,8 @@
 import React from "react";
-import { valueProps } from "../../model";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { useAppSelector } from "../../app/hook";
 
+import { Flex, Text } from "@chakra-ui/react";
+import { useAppSelector } from "../../app/hook";
+import CardUtils from "./CardUtils";
 const RequsitionCard = () => {
   const data = useAppSelector((state) => state.details);
 
@@ -78,106 +78,10 @@ const RequsitionCard = () => {
           mr="16px"
           mt="29px"
         >
-          <Flex flexDir="column">
-            <Text
-              fontWeight="300"
-              fontSize="10px"
-              letterSpacing="0.05em"
-              textTransform="uppercase"
-              color="brand.500"
-              lineHeight="14px"
-            >
-              owner
-            </Text>
-            <Text
-              fontWeight="600"
-              fontStyle="italic"
-              fontSize="13px"
-              letterSpacing="0.05em"
-              textTransform="capitalize"
-              color="brand.500"
-              lineHeight="18px"
-              pb="29px"
-              pr="15px"
-            >
-              {data.owner}
-            </Text>
-          </Flex>
-          <Flex flexDir="column">
-            <Text
-              fontWeight="300"
-              fontSize="10px"
-              letterSpacing="0.05em"
-              textTransform="uppercase"
-              color="brand.500"
-              lineHeight="14px"
-            >
-              Urgency
-            </Text>
-            <Text
-              fontWeight="600"
-              fontStyle="italic"
-              fontSize="13px"
-              letterSpacing="0.05em"
-              textTransform="capitalize"
-              color="brand.500"
-              lineHeight="18px"
-              pb="29px"
-              pr="15px"
-            >
-              {data.urgency}
-            </Text>
-          </Flex>
-          <Flex flexDir="column">
-            <Text
-              fontWeight="300"
-              fontSize="10px"
-              letterSpacing="0.05em"
-              textTransform="uppercase"
-              color="brand.500"
-              lineHeight="14px"
-            >
-              Employment Type
-            </Text>
-            <Text
-              fontWeight="600"
-              fontStyle="italic"
-              fontSize="13px"
-              letterSpacing="0.05em"
-              textTransform="capitalize"
-              color="brand.500"
-              lineHeight="18px"
-              pb="29px"
-              pr="15px"
-            >
-              {data.employmentType}
-            </Text>
-          </Flex>
-          <Flex flexDir="column">
-            <Text
-              fontWeight="300"
-              fontSize="10px"
-              letterSpacing="0.05em"
-              textTransform="uppercase"
-              color="brand.500"
-              lineHeight="14px"
-            >
-              Hiring Managaer
-            </Text>
-            <Text
-              fontWeight="600"
-              fontStyle="italic"
-              fontSize="13px"
-              letterSpacing="0.05em"
-              textTransform="capitalize"
-              color="brand.500"
-              lineHeight="18px"
-              pb="29px"
-              pr="15px"
-            >
-              {data.hiringManger}
-            </Text>
-          </Flex>
+          <CardUtils name="Owner" value={data.owner} />
+          <CardUtils name="Urgency" value={data.urgency} />
+          <CardUtils name="Employment Type" value={data.employmentType} />
+          <CardUtils name="Hiring Managaer" value={data.hiringManger} />
         </Flex>
       </Flex>
     </Flex>
