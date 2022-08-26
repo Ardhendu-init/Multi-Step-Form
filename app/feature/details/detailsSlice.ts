@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../../store";
-import { valueProps, reqProps, jobProps, interviewProps } from "../../../model";
-import { stat } from "fs";
+
+import { valueProps} from "../../../model";
+
 
 // Define the initial state using that type
 const initialState: valueProps = {
