@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Button } from "@chakra-ui/react";
 import { PageContext } from "../../Provider/PageContextProvider";
-import { useAppSelector } from "../../../app/hook";
+
 interface btnProps {
   name: string;
 }
 const PrevButton = ({ name }: btnProps) => {
   const pageContext = useContext(PageContext);
-  const data = useAppSelector((state) => state.details);
+
   return (
     <Button
       w="143px"
@@ -21,7 +21,7 @@ const PrevButton = ({ name }: btnProps) => {
       lineHeight="17px"
       letterSpacing="0.01em"
       variant="unstyled"
-      onClick={() => pageContext?.handlePrev(data)}
+      onClick={() => pageContext?.handlePrev()}
     >
       {name}
     </Button>

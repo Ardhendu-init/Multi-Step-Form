@@ -4,7 +4,7 @@ import { JobSchema } from "../Schema/Schema";
 import { useAppSelector, useAppDispatch } from "../../app/hook";
 import { add } from "../../app/feature/details/detailsSlice";
 import { PageContext } from "../Provider/PageContextProvider";
-import { FormControl, Flex, Box, FormErrorMessage } from "@chakra-ui/react";
+import { FormControl, Flex } from "@chakra-ui/react";
 import { PrevButton, NextButton } from "./fromsUtil/FormButton";
 import InputField from "./fromsUtil/InputField";
 const JobDetails = () => {
@@ -17,7 +17,7 @@ const JobDetails = () => {
 
     validationSchema: JobSchema,
     onSubmit: (values) => {
-      pageContext?.handleNext(data);
+      pageContext?.handleNext();
     },
   });
   useEffect(() => {

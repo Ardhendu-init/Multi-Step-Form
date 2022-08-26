@@ -8,26 +8,24 @@ import InterviewCard from "../cards/InterviewCard";
 import JobCard from "../cards/JobCard";
 import RequsitionCard from "../cards/RequsitionCard";
 import { PageContext } from "../Provider/PageContextProvider";
-import { useAppDispatch } from "../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { add, refresh } from "../../app/feature/details/detailsSlice";
 const MainForm = () => {
   const [page, setPage] = useState<number>(0);
   const dispatch = useAppDispatch();
-
-  const handlePrev = async (values: valueProps) => {
-    await dispatch(add(values));
+  const data = useAppSelector((state) => state.details);
+  const handlePrev = () => {
     if (page > 0) {
       setPage((prev) => prev - 1);
     }
   };
-  const handleNext = async (values: valueProps) => {
+  const handleNext = () => {
     if (page == 2) {
       setPage(0);
-      alert(JSON.stringify(values, null, 2));
-      await dispatch(refresh());
+      alert(JSON.stringify(data, null, 2));
+      dispatch(refresh());
     } else {
       setPage((cur) => cur + 1);
-      await dispatch(add(values));
     }
   };
 

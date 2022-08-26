@@ -2,8 +2,8 @@ import { valueProps } from "../../model";
 import  {  createContext } from "react";
 
 interface PageContextInterface {
-  handlePrev: (values: valueProps) => void;
-  handleNext: (values: valueProps) => void;
+  handlePrev: () => void;
+  handleNext: () => void;
 }
 
 export const PageContext = createContext<PageContextInterface | null>(null);

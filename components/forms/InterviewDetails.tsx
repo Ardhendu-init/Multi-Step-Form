@@ -18,7 +18,7 @@ const InterviewDetails = () => {
 
     validationSchema: InterviewSchema,
     onSubmit: (values) => {
-      pageContext?.handleNext(data);
+      pageContext?.handleNext();
     },
   });
   useEffect(() => {

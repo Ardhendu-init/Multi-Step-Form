@@ -13,7 +13,6 @@ const InputField = ({
   meta,
   ...props
 }: FieldProps & InputProps & FieldAttributes<any>) => {
-  console.log(meta);
   return (
     <>
       <FormLabel

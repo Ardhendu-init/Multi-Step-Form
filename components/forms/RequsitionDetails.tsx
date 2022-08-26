@@ -16,7 +16,7 @@ const RequsitionDetails = () => {
     initialValues: data,
     validationSchema: RegistrationSchema,
     onSubmit: (values) => {
-      pageContext?.handleNext(data);
+      pageContext?.handleNext();
     },
   });
   useEffect(() => {
